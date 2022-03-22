@@ -3,8 +3,9 @@ Simple cloud deployment tool for a spring boot application.
 
 
 ```bash
-Authentication
-Pushmonolith login
+
+# Authentication
+pushmonolith login
 
 # deploys jar application
 pushmonolith app.jar
