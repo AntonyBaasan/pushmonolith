@@ -1,11 +1,14 @@
-# pushspring
+# pushmonolith
 Simple cloud deployment tool for a spring boot application.
 
 
 ```bash
+Authentication
+Pushmonolith login
+
 # deploys jar application
-pushspring app.jar
+pushmonolith app.jar
 
 # shows all deployed application
-pushspring ls
+pushmonolith ls
 ```
