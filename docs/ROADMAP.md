@@ -13,7 +13,7 @@ The `deploy` command does below steps:
 
 - Create AWS server, using CloudFormation
 - Copy JAR file into the server
-- Install and run application as init.d service
+- Install and run application as init.d service ([read more](https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html#deployment.cloud.aws))
 - Setup letsencrypt certificate for domain name `app.pushmonolith.com`
 
 ``` 
