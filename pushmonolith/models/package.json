@@ -1,12 +1,13 @@
 {
   "name": "@pushmonolith/models",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "",
   "type": "module",
   "main": "./dist/index.js",
+  "files": ["dist/*.js", "dist/**/*.js"],
   "scripts": {
     "build": "tsc --project tsconfig.json",
-    "publish": "npm run build && npm publish --access public",
+    "publish:public": "npm publish --access public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
