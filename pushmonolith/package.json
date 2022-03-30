@@ -1,0 +1,11 @@
+{
+    "name":"app",
+    "version":"1.0.0",
+    "workspaces":[
+       "models",
+       "core",
+       "pushmonolith"
+    ],
+    "author":"Antony",
+    "license":"MIT"
+ }

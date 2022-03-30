@@ -1,0 +1,21 @@
+{
+  "name": "@pushmonolith/models",
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "publish": "npm run build && npm publish --access public",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "eslint": "^8.12.0",
+    "typescript": "^4.6.3"
+  }
+}
