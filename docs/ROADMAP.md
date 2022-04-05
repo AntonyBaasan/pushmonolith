@@ -33,3 +33,6 @@ pushmonolith login
 ``` 
 pushmonolith list
 ```
+
+### User can create a database on a same server
+### User can create a load balancer
