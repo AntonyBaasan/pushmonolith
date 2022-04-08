@@ -22,6 +22,7 @@ pushmonolith deploy -file app.jar
 pushmonolith deploy -dir dist
 ```
 
+## Stage 2
 ### User can login to pushmonolith.com
 
 ``` 
@@ -36,3 +37,5 @@ pushmonolith list
 
 ### User can create a database on a same server
 ### User can create a load balancer
+### letsencrypt is setup automatically
+
