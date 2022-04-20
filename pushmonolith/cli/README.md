@@ -19,11 +19,11 @@ oclif example Hello World CLI
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g pushmonolith
+$ npm install -g @pushmonolith/cli
 $ pushmonolith COMMAND
 running command...
 $ pushmonolith (--version)
-pushmonolith/0.0.0 win32-x64 node-v14.18.1
+@pushmonolith/cli/0.0.1 win32-x64 node-v14.18.1
 $ pushmonolith --help [COMMAND]
 USAGE
   $ pushmonolith COMMAND
@@ -44,6 +44,7 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`pushmonolith deploy [FILE]`](#pushmonolith-deploy-file)
 * [`pushmonolith hello PERSON`](#pushmonolith-hello-person)
 * [`pushmonolith hello world`](#pushmonolith-hello-world)
 * [`pushmonolith help [COMMAND]`](#pushmonolith-help-command)
@@ -56,6 +57,27 @@ USAGE
 * [`pushmonolith plugins:uninstall PLUGIN...`](#pushmonolith-pluginsuninstall-plugin-1)
 * [`pushmonolith plugins:uninstall PLUGIN...`](#pushmonolith-pluginsuninstall-plugin-2)
 * [`pushmonolith plugins update`](#pushmonolith-plugins-update)
+
+## `pushmonolith deploy [FILE]`
+
+deploys artifact into cloud providers
+
+```
+USAGE
+  $ pushmonolith deploy [FILE] [-f <value>] [-f]
+
+FLAGS
+  -f, --file=<value>  artifact file to deploy
+  -f, --force
+
+DESCRIPTION
+  deploys artifact into cloud providers
+
+EXAMPLES
+  $ pushmonolith deploy
+```
+
+_See code: [dist/commands/deploy.ts](https://github.com/AntonyBaasan/pushmonolith/blob/v0.0.1/dist/commands/deploy.ts)_
 
 ## `pushmonolith hello PERSON`
 
@@ -79,7 +101,7 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [dist/commands/hello/index.ts](https://github.com/AntonyBaasan/hello-world/blob/v0.0.0/dist/commands/hello/index.ts)_
+_See code: [dist/commands/hello/index.ts](https://github.com/AntonyBaasan/pushmonolith/blob/v0.0.1/dist/commands/hello/index.ts)_
 
 ## `pushmonolith hello world`
 
