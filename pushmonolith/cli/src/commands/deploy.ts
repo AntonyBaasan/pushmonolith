@@ -1,5 +1,6 @@
 import {Command, Flags} from '@oclif/core'
 import {User} from '@pushmonolith/models'
+import {TestService} from '@pushmonolith/core'
 // import * as Models from '@pushmonolith/models'
 
 export default class Deploy extends Command {
