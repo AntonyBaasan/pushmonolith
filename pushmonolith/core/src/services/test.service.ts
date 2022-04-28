@@ -20,7 +20,7 @@ export class TestService {
         const createStackParam: CreateStackCommandInput = this.createEc2StackInput();
 
         const stack: Stack = await this.getStackInfo(createStackParam.StackName);
-        console.log(stack);
+        // console.log(stack);
 
         try {
             let data = null;
