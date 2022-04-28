@@ -23,6 +23,7 @@ export default class Echo extends Command {
     // this.log(`hello ${name} from C:\\Users\\abaasandorj\\git\\pushmonolith\\pushmonolith\\cli\\src\\commands\\echo.ts`)
 
     const service = new TestService()
-    console.log(service.saySomething())
+    const result = await service.saySomething()
+    console.log(result)
   }
 }
