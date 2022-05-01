@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-cloudformation": "^3.72.0",
+    "@aws-sdk/client-s3": "^3.81.0",
     "webpack-node-externals": "^3.0.0"
   }
 }
