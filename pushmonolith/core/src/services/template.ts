@@ -1,9 +1,9 @@
 export const BaseTemplate = {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "Demo template",
-  // "Metadata": {
-  //   "Instances": { "Description": "Information about the instances" },
-  // },
+  "Metadata": {
+    "Instances": { "Description": "Information about the instances" },
+  },
 
   "Parameters": {
     "KeyName": {
@@ -39,14 +39,14 @@ export const BaseTemplate = {
 
   "Mappings": {
     "AWSInstanceType2Arch": {
-      "t1.micro": { "Arch": "Ubuntu" },
-      "t2.nano": { "Arch": "Ubuntu" },
-      "t2.micro": { "Arch": "Ubuntu" },
-      "t2.small": { "Arch": "Ubuntu" },
+      "t1.micro": { "Arch": "Amaz" },
+      "t2.nano": { "Arch": "Amaz" },
+      "t2.micro": { "Arch": "Amaz" },
+      "t2.small": { "Arch": "Amaz" },
     },
 
     "AWSRegionArch2AMI": {
-      "us-east-1": { "Ubuntu": "ami-0b0ea68c435eb488d" },
+      "us-east-1": { "Ubuntu": "ami-0b0ea68c435eb488d", "Amaz": "ami-0022f774911c1d690" },
     }
   },
 
@@ -125,9 +125,40 @@ export const BaseTemplate = {
           }
         },
         "AWS::CloudFormation::Init": {
-          "files": {
-            "/var/pushmonolith/app.jar": {
-              "source": "s3://pushmonolith-2/app.jar"
+          "configSets": {
+            "Install": [
+              "Install"
+            ]
+          },
+          "Install": {
+            "packages": {
+            },
+            "files": {
+              "/var/pushmonolith/app.jar": {
+                "source": "https://pushmonolith-2.s3.amazonaws.com/app.jar",
+                "mode": "000400",
+                "owner": "ubuntu",
+                "group": "ubuntu",
+                "authentication": "S3AccessCreds"
+              },
+              "/etc/nginx/conf.d/default.conf": {
+                "content": {
+                  "Fn::Join": ["", [
+                    "server { \n",
+                    "  listen 80; \n",
+
+                    "  location / { \n",
+                    "      proxy_set_header   X-Forwarded-For $remote_addr; \n",
+                    "      proxy_set_header   Host $http_host; \n",
+                    "      proxy_pass         \"http://127.0.0.1:8080\"; \n",
+                    "  } \n",
+                    "} \n",
+                  ]]
+                },
+                "mode": "000644",
+                "owner": "root",
+                "group": "root"
+              }
             }
           },
         },
@@ -142,6 +173,35 @@ export const BaseTemplate = {
         "KeyName": { "Ref": "KeyName" },
         "IamInstanceProfile": {
           "Ref": "InstanceProfile"
+        },
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": ["", [
+              "#!/bin/bash -xe\n",
+              "amazon-linux-extras install nginx1 \n",
+              "amazon-linux-extras install java-openjdk11 \n",
+              "yum install -y aws-cfn-bootstrap\n",
+              "# Install the files and packages from the metadata\n",
+              "/opt/aws/bin/cfn-init -v ",
+              "         --stack ",
+              {
+                "Ref": "AWS::StackName"
+              },
+              "         --resource WebServerInstance ",
+              "         --configsets Install ",
+              "         --region ",
+              {
+                "Ref": "AWS::Region"
+              },
+              "\n",
+              "# Start nginx\n",
+              "systemctl start nginx \n",
+              "# Start Jar application \n",
+              "ln -s /var/pushmonolith/app.jar /etc/init.d/pushmonolith",
+              "service pushmonolith start",
+              "\n"
+            ]]
+          }
         }
       },
     },
