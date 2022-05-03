@@ -137,8 +137,8 @@ export const BaseTemplate = {
               "/var/pushmonolith/app.jar": {
                 "source": "https://pushmonolith-2.s3.amazonaws.com/app.jar",
                 "mode": "000400",
-                "owner": "ubuntu",
-                "group": "ubuntu",
+                "owner": "root",
+                "group": "root",
                 "authentication": "S3AccessCreds"
               },
               "/etc/nginx/conf.d/default.conf": {
@@ -194,11 +194,12 @@ export const BaseTemplate = {
                 "Ref": "AWS::Region"
               },
               "\n",
+              "# Start Jar application \n",
+              "chmod +x /var/pushmonolith/app.jar \n",
+              "ln -s /var/pushmonolith/app.jar /etc/init.d/pushmonolith \n",
+              "service pushmonolith start \n",
               "# Start nginx\n",
               "systemctl start nginx \n",
-              "# Start Jar application \n",
-              "ln -s /var/pushmonolith/app.jar /etc/init.d/pushmonolith",
-              "service pushmonolith start",
               "\n"
             ]]
           }
