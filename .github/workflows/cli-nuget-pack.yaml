@@ -19,5 +19,10 @@ jobs:
         dotnet-version: 8.0.x
     - name: Package
       run: dotnet pack ./pushmonolith/src/Pushmonolith.Cli/Pushmonolith.Cli.csproj --version-suffix "${{ github.run_number }}"
+    - name: Archive package artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: archive ${{ github.run_number }}
+        path: ./pushmonolith/src/Pushmonolith.Cli/nupkg/*.nupkg
     # - name: Test
     #   run: dotnet test --no-build --verbosity normal
