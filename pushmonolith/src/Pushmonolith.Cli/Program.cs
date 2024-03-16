@@ -5,7 +5,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using Pushmonolith.Cli.ExecutionManager.Services;
-using Pushmonolith.Store.Services;
 
 class Program
 {
