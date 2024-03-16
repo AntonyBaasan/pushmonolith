@@ -83,4 +83,43 @@ internal class ConsoleHosterService : IHostedService
         });
         return command;
     }
+    static Command CreateInitCommand()
+    {
+        var command = new Command("", "");
+        command.SetHandler(() =>
+        {
+            // read yaml config file
+            Console.WriteLine("reading pushmonolith.yaml file");
+
+            // read publish folder
+            Console.WriteLine("publish folder");
+
+            // archive publish folder
+            Console.WriteLine("publish folder");
+
+            // upload archive file
+            Console.WriteLine("Logging in...");
+        });
+        return command;
+    }
+
+    static Command CreateDeployCommand()
+    {
+        var command = new Command("deploy", "Deploy target application based on monolith.yaml file.");
+        command.SetHandler(() =>
+        {
+            // read yaml config file
+            Console.WriteLine("reading pushmonolith.yaml file");
+
+            // read publish folder
+            Console.WriteLine("publish folder");
+
+            // archive publish folder
+            Console.WriteLine("publish folder");
+
+            // upload archive file
+            Console.WriteLine("Logging in...");
+        });
+        return command;
+    }
 }
