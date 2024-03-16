@@ -1,6 +1,16 @@
 @Pushmonolith.WebApi_HostAddress = http://localhost:5249
 
-GET {{Pushmonolith.WebApi_HostAddress}}/weatherforecast/
+GET {{Pushmonolith.WebApi_HostAddress}}/api/project
 Accept: application/json
 
+###
+
+
+POST {{Pushmonolith.WebApi_HostAddress}}/api/project
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Project 1"
+}
 ###

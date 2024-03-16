@@ -1,6 +1,11 @@
+using Pushmonolith.Project.Services;
+using Pushmonolith.Store.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<IPushmonolithStore, InMemoryStore>();
+builder.Services.AddSingleton<IProjectService, ProjectService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

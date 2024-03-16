@@ -19,6 +19,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Pushmonolith.Cli.ExecutionManager\Pushmonolith.Cli.ExecutionManager.csproj" />
+		<ProjectReference Include="..\Pushmonolith.Store\Pushmonolith.Store.csproj" />
 	</ItemGroup>
 
 </Project>

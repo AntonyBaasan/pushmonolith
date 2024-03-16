@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using Pushmonolith.Cli.ExecutionManager.Services;
-using System.CommandLine;
+using Pushmonolith.Store.Services;
 
 class Program
 {
@@ -15,26 +15,10 @@ class Program
             .ConfigureServices((hostContext, services) =>
             {
                 SetServices(services, hostContext.Configuration);
-                services.AddSingleton<InputArgs>(provider => new InputArgs { Args = args });
+                services.AddSingleton(provider => new InputArgs { Args = args });
                 services.AddHostedService<ConsoleHosterService>();
             })
             .RunConsoleAsync();
-    }
-    static async Task Main2(string[] args)
-    {
-        //builder.Configuration.Sources.Clear();
-        //// load config
-        //IConfiguration config = new ConfigurationBuilder()
-        //    .AddJson("appsettings.json")
-        //    //.AddJsonFile($"appsettings.{env.EnvironmentName}.json")
-        //    .AddEnvirionmentVariables()
-        //    .Build();
-
-        // Setup depencency injection
-        var services = new ServiceCollection();
-
-
-
     }
     static void SetServices(IServiceCollection services, IConfiguration configuration)
     {
@@ -52,10 +36,5 @@ class Program
             })
             .BuildServiceProvider();
     }
-
-}
-class InputArgs
-{
-    public string[] Args { get; set; }
 }
 
