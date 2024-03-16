@@ -17,10 +17,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-      working-directory: ./pushmonolith
     - name: Package
-      run: dotnet pack ./pushmonolith/src/Pushmonolith.Cli/Pushmonolith.Cli.csproj --no-restore --version-suffix "${{ github.run_number }}"
+      run: dotnet pack ./pushmonolith/src/Pushmonolith.Cli/Pushmonolith.Cli.csproj --version-suffix "${{ github.run_number }}"
     # - name: Test
     #   run: dotnet test --no-build --verbosity normal
