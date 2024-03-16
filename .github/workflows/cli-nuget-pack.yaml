@@ -21,6 +21,6 @@ jobs:
       run: dotnet restore
       working-directory: ./pushmonolith
     - name: Package
-      run: dotnet pack ./pushmonolith/src/Pushmonolith.Cli/Pushmonolith.Cli.csproj --no-restore --version-suffix "${{ github.run_attempt }}"
+      run: dotnet pack ./pushmonolith/src/Pushmonolith.Cli/Pushmonolith.Cli.csproj --no-restore --version-suffix "${{ github.run_number }}"
     # - name: Test
     #   run: dotnet test --no-build --verbosity normal
