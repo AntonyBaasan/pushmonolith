@@ -58,11 +58,11 @@ internal class ConsoleHosterService : IHostedService
 
     static List<Command> GetCommands()
     {
-        return new List<Command>
-        {
+        return
+        [
             CreateDebugCommand(),
             CreateLoginCommand()
-        };
+        ];
     }
 
     static Command CreateDebugCommand()
