@@ -4,8 +4,7 @@
 name: Package and publish Pushmonolith Cli
 
 on:
-  workflow_dispatch:
-    branches: [ "main" ]
+  workflow_dispatch
 
 jobs:
   build:
