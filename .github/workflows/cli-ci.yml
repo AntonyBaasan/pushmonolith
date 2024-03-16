@@ -6,6 +6,9 @@ name: Build and Test Pushmonolith Cli
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - pushmonolith/**
+
   pull_request:
     branches: [ "main" ]
 
