@@ -25,6 +25,6 @@ jobs:
       working-directory: ./pushmonolith
     - name: Build
       run: dotnet build --no-restore
-      working-directory: ./pushmonolith/src/pushmonolith.cli
+      working-directory: pushmonolith/src/pushmonolith.cli
     # - name: Test
     #   run: dotnet test --no-build --verbosity normal
