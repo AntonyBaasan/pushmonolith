@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.CommandLine;
+using System.Net.Http.Headers;
 
 internal class ConsoleHosterService : IHostedService
 {
@@ -61,7 +62,9 @@ internal class ConsoleHosterService : IHostedService
         return
         [
             CreateDebugCommand(),
-            CreateLoginCommand()
+            CreateLoginCommand(),
+            CreateInitCommand(),
+            CreateUploadCommand()
         ];
     }
 
@@ -85,7 +88,7 @@ internal class ConsoleHosterService : IHostedService
     }
     static Command CreateInitCommand()
     {
-        var command = new Command("", "");
+        var command = new Command("init", "");
         command.SetHandler(() =>
         {
             // read yaml config file
@@ -103,22 +106,35 @@ internal class ConsoleHosterService : IHostedService
         return command;
     }
 
-    static Command CreateDeployCommand()
+    static Command CreateUploadCommand()
     {
-        var command = new Command("deploy", "Deploy target application based on monolith.yaml file.");
-        command.SetHandler(() =>
+        var command = new Command("upload", "Deploy target application based on monolith.yaml file.");
+        command.SetHandler(async () =>
         {
             // read yaml config file
-            Console.WriteLine("reading pushmonolith.yaml file");
+            Console.WriteLine("* Reading pushmonolith.yaml file...");
 
             // read publish folder
-            Console.WriteLine("publish folder");
+            Console.WriteLine("* Reading publish directory...");
 
             // archive publish folder
-            Console.WriteLine("publish folder");
+            Console.WriteLine("* Archiving publish directory...");
 
             // upload archive file
-            Console.WriteLine("Logging in...");
+            Console.WriteLine("* Uploading file...");
+
+            var file = new FileInfo("C:\\temp\\publisih\\archive.zip");
+            var client = new HttpClient();
+
+            var content = new MultipartFormDataContent();
+            var fileContent = new StreamContent(file.OpenRead());
+            fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/zip");
+            content.Add(fileContent, "file", file.Name);
+            var response = await client.PostAsync("http://localhost:5249/api/project/1/upload", content);
+
+            Console.WriteLine("Done.");
+
+
         });
         return command;
     }
