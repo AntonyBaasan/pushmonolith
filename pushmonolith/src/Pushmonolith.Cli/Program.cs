@@ -5,12 +5,21 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using Pushmonolith.Cli.ExecutionManager.Services;
+using dotenv.net;
 
 class Program
 {
     static async Task Main(string[] args)
     {
+        DotEnv.Load();
         await Host.CreateDefaultBuilder(args)
+            .ConfigureHostConfiguration(configHost =>
+            {
+                var environmentName = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
+                configHost.AddJsonFile("appsettings.json", optional: true);
+                configHost.AddJsonFile($"appsettings.{environmentName}.json", optional: true);
+                configHost.AddCommandLine(args);
+            })
             .ConfigureServices((hostContext, services) =>
             {
                 SetServices(services, hostContext.Configuration);

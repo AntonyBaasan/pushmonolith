@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Pushmonolith.Project.Models;
 using Pushmonolith.Project.Services;
-using System.Net.Http.Headers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,12 +11,10 @@ namespace Pushmonolith.WebApi.Controllers
     public class ProjectController : ControllerBase
     {
         private readonly IProjectService projectService;
-        private readonly string volumeLocation;
-
-        public ProjectController(IProjectService projectService, IConfiguration configuration)
+        
+        public ProjectController(IProjectService projectService)
         {
             this.projectService = projectService;
-            this.volumeLocation = configuration.GetValue<string>("VolumeLocation");
         }
 
         // GET: api/<ProjectController>
@@ -62,22 +59,7 @@ namespace Pushmonolith.WebApi.Controllers
             {
                 var formCollection = await Request.ReadFormAsync();
                 var file = formCollection.Files.First();
-                var directory = Path.Combine(volumeLocation, id);
-                if (file?.Length > 0)
-                {
-                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    Directory.CreateDirectory(directory);
-                    var fullPath = Path.Combine(directory, fileName);
-                    using (var stream = new FileStream(fullPath, FileMode.OpenOrCreate))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
-                    return Ok("Success");
-                }
-                else 
-                {
-                    return Ok("No file passed!");
-                }
+                return Ok(await projectService.Upload(id, file));
             }
             catch (Exception ex)
             {

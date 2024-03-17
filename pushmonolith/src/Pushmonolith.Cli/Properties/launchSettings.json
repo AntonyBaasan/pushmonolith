@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Pushmonolith.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "upload"
+    }
+  }
+}
