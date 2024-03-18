@@ -7,6 +7,8 @@ using System.IO.Compression;
 using System.Net.Http.Headers;
 using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Serialization;
+using Confluent.Kafka;
+using System.Text.Json;
 
 internal class ConsoleHosterService : IHostedService
 {
@@ -119,6 +121,11 @@ internal class ConsoleHosterService : IHostedService
         var command = new Command("upload", "Deploy target application based on monolith.yaml file.");
         command.SetHandler(async () =>
         {
+            // create temp directories
+            Console.WriteLine("* Creating temp directories...");
+            Directory.CreateDirectory("C:\\temp\\publisih");
+            Directory.CreateDirectory("C:\\temp\\upload");
+            
             // read yaml config file
             Console.WriteLine("* Reading pushmonolith.yaml file...");
             var deserializer = new DeserializerBuilder()
@@ -126,7 +133,8 @@ internal class ConsoleHosterService : IHostedService
                 .WithNamingConvention(LowerCaseNamingConvention.Instance)
                 .Build();
             UploadMetadata uploadMetadata = null;
-            using (TextReader reader = new StreamReader("C:\\Users\\abaasandorj\\git\\pushmonolith\\pushmonolith\\src\\Pushmonolith.Cli\\pushmonolith-test.yaml"))
+            var sourceYaml = "C:\\Users\\abaasandorj\\git\\pushmonolith\\pushmonolith\\src\\Pushmonolith.Cli\\pushmonolith-test.yaml";
+            using (TextReader reader = new StreamReader(sourceYaml))
             {
                 uploadMetadata = deserializer.Deserialize<UploadMetadata>(reader);
             }
@@ -139,17 +147,48 @@ internal class ConsoleHosterService : IHostedService
 
             // upload archive file
             Console.WriteLine("* Uploading file...");
-            var sourceFile = new FileInfo(sourceFileName);
-            var client = new HttpClient();
-            var content = new MultipartFormDataContent();
-            var fileContent = new StreamContent(sourceFile.OpenRead());
-            fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/zip");
-            content.Add(fileContent, "file", sourceFile.Name);
-            var uploadUrl = Path.Combine(baseUrl, $"api/project/{uploadMetadata.ProjectId}/upload");
-            var response = await client.PostAsync(uploadUrl, content);
+            //var sourceFile = new FileInfo(sourceFileName);
+            //var client = new HttpClient();
+            //var content = new MultipartFormDataContent();
+            //var fileContent = new StreamContent(sourceFile.OpenRead());
+            //fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/zip");
+            //content.Add(fileContent, "file", sourceFile.Name);
+            //var uploadUrl = Path.Combine(baseUrl, $"api/project/{uploadMetadata.ProjectId}/upload");
+            //var response = await client.PostAsync(uploadUrl, content);
+
+            // send message to kafka
+            IConfiguration configuration = readConfig();
+            const string topic = "project_upload";
+            // creates a new producer instance
+            using (var producer = new ProducerBuilder<string, string>(configuration.AsEnumerable()).Build())
+            {
+                // produces a sample message to the user-created topic and prints
+                // a message when successful or an error occurs
+                string messageValue = JsonSerializer.Serialize(uploadMetadata);
+                producer.Produce(topic, new Message<string, string> { Key = "key", Value = messageValue },
+                  (deliveryReport) =>
+                  {
+                      if (deliveryReport.Error.Code != ErrorCode.NoError)
+                      {
+                          Console.WriteLine($"Failed to deliver message: {deliveryReport.Error.Reason}");
+                      }
+                      else
+                      {
+                          Console.WriteLine($"Produced event to topic {topic}: key = {deliveryReport.Message.Key,-10} value = {deliveryReport.Message.Value}");
+                      }
+                  }
+                );
+            }
 
             Console.WriteLine("Done.");
         });
         return command;
+    }
+    public static IConfiguration readConfig()
+    {
+        return new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddIniFile("kafka.properties", false)
+        .Build();
     }
 }
