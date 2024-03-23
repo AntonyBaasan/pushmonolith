@@ -21,9 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pushmonolith.Cli.ExecutionM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pushmonolith.Cli.Auth", "src\Pushmonolith.Cli.Auth\Pushmonolith.Cli.Auth.csproj", "{87F51710-A14D-43F6-9917-6EFC3337CAF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pushmonolith.Store", "src\Pushmonolith.Store\Pushmonolith.Store.csproj", "{AD23AC80-4072-4827-92BA-471EEFFF0C27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pushmonolith.Store", "src\Pushmonolith.Store\Pushmonolith.Store.csproj", "{AD23AC80-4072-4827-92BA-471EEFFF0C27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pushmonolith.Project", "src\Pushmonolith.Project\Pushmonolith.Project.csproj", "{9547B5C6-065C-4C30-826B-BC0A133112DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pushmonolith.Project", "src\Pushmonolith.Project\Pushmonolith.Project.csproj", "{9547B5C6-065C-4C30-826B-BC0A133112DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pushmonolith.Messaging.Abstract", "src\Pushmonolith.Messaging.Abstract\Pushmonolith.Messaging.Abstract.csproj", "{8CC3A613-EE80-4BA5-B94B-ECA9764A5A92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pushmonolith.Messaging.AzureMessageBus", "src\Pushmonolith.Messaging.AzureMessageBus\Pushmonolith.Messaging.AzureMessageBus.csproj", "{B7AC8C19-0652-42DA-945E-C436D9DAFF95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +63,14 @@ Global
 		{9547B5C6-065C-4C30-826B-BC0A133112DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9547B5C6-065C-4C30-826B-BC0A133112DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9547B5C6-065C-4C30-826B-BC0A133112DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CC3A613-EE80-4BA5-B94B-ECA9764A5A92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CC3A613-EE80-4BA5-B94B-ECA9764A5A92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CC3A613-EE80-4BA5-B94B-ECA9764A5A92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CC3A613-EE80-4BA5-B94B-ECA9764A5A92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7AC8C19-0652-42DA-945E-C436D9DAFF95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7AC8C19-0652-42DA-945E-C436D9DAFF95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7AC8C19-0652-42DA-945E-C436D9DAFF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7AC8C19-0652-42DA-945E-C436D9DAFF95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +86,8 @@ Global
 		{87F51710-A14D-43F6-9917-6EFC3337CAF4} = {500C124F-903D-44EC-B999-7E32C202DDE0}
 		{AD23AC80-4072-4827-92BA-471EEFFF0C27} = {09BDE4A0-911B-4474-9ECE-7C6E3C23A047}
 		{9547B5C6-065C-4C30-826B-BC0A133112DC} = {09BDE4A0-911B-4474-9ECE-7C6E3C23A047}
+		{8CC3A613-EE80-4BA5-B94B-ECA9764A5A92} = {09BDE4A0-911B-4474-9ECE-7C6E3C23A047}
+		{B7AC8C19-0652-42DA-945E-C436D9DAFF95} = {09BDE4A0-911B-4474-9ECE-7C6E3C23A047}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {194211ED-A0C5-4110-8679-05A7D74E26F6}
